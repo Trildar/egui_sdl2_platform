@@ -236,12 +236,14 @@ impl Platform {
         self.raw_input.time = Some(duration);
     }
 
-    /// Return the processed context
-    pub fn context(&mut self) -> egui::Context {
-        // Begin the frame
-        self.egui_ctx.begin_frame(self.raw_input.take());
-        // Return the ctx
+    /// Get the egui context
+    pub fn context(&self) -> egui::Context {
         self.egui_ctx.clone()
+    }
+
+    /// Process input and start the egui frame
+    pub fn begin_frame(&mut self) {
+        self.egui_ctx.begin_frame(self.raw_input.take());
     }
 
     /// Stop drawing the egui frame and return the full output
