@@ -147,18 +147,20 @@ impl Platform {
                             || (*keymod & Mod::LGUIMOD == Mod::LGUIMOD);
 
                         // Handle Cut Copy and paste
-                        match key {
-                            egui::Key::C => self.raw_input.events.push(egui::Event::Copy),
-                            egui::Key::X => self.raw_input.events.push(egui::Event::Cut),
-                            egui::Key::V => {
-                                let clipboard = video.clipboard();
-                                if clipboard.has_clipboard_text() {
-                                    self.raw_input.events.push(egui::Event::Text(
-                                        clipboard.clipboard_text().unwrap(),
-                                    ));
+                        if ctrl || mac_cmd {
+                            match key {
+                                egui::Key::C => self.raw_input.events.push(egui::Event::Copy),
+                                egui::Key::X => self.raw_input.events.push(egui::Event::Cut),
+                                egui::Key::V => {
+                                    let clipboard = video.clipboard();
+                                    if clipboard.has_clipboard_text() {
+                                        self.raw_input.events.push(egui::Event::Text(
+                                            clipboard.clipboard_text().unwrap(),
+                                        ));
+                                    }
                                 }
+                                _ => {}
                             }
-                            _ => {}
                         }
 
                         // Update the modifiers
