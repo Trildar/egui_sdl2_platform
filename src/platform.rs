@@ -111,7 +111,7 @@ impl Platform {
             // Handle the mouse scrolling
             Event::MouseWheel { x, y, .. } => {
                 // Calculate the delta
-                let delta = egui::Vec2::new(*x as f32 * 8.0, *y as f32 * 8.0);
+                let delta = egui::Vec2::new(*x as f32 * 16.0, *y as f32 * 16.0);
                 // Check the mod state
                 use sdl2::keyboard::Mod;
                 let left_ctrl = sdl.keyboard().mod_state() & Mod::LCTRLMOD == Mod::LCTRLMOD;
